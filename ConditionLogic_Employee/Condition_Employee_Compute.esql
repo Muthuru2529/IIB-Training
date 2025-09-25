@@ -1,0 +1,51 @@
+
+
+
+
+CREATE COMPUTE MODULE Condition_Employee_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		-- DECLARE empdomain character;
+		-- DECLARE samid REFERENCE TO InputRoot.XMLNSC.employee;
+		--
+		-- --DECLARE employeeDomain REFERENCE TO InputRoot.XMLNSC.employee.employeeDomain;
+		--
+		-- SET empdomain = InputRoot.XMLNSC.employee.employeeDomain;
+		-- -- SET samid = empdomain.employeeId;
+		--
+		--
+		-- IF empdomain = 'IIB' THEN
+		-- SET OutputRoot.JSON.Data.person =samid;
+		-- SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'out1';
+		--
+		-- ELSE
+		-- SET OutputRoot.JSON.Data.person ='InputRoot.XMLNSC.employee';
+		-- SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'out2';
+		-- END IF;
+
+		DECLARE person REFERENCE TO InputRoot.XMLNSC.employee;
+
+		IF person.employeeDomain = 'IIB' THEN
+			SET OutputRoot.JSON.Data.person.details = person;
+			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'out1';
+		ELSEIF person.employeeDomain = 'APIC' THEN
+			SET OutputRoot.XMLNSC.person.details = person;
+			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'out2';
+		ELSEIF person.employeeDomain = 'Openshift' THEN
+			SET OutputRoot.JSON.Data.details.Id = person.employeeId;
+			SET OutputRoot.JSON.Data.details.Name = person.employeeName;
+			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'out3';
+		ELSEIF person.employeeDomain = 'RPA' THEN
+			SET OutputRoot.JSON.Data.person.details = 'employee details';
+			SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'out4';
+
+		END IF;	
+
+
+	END;
+END MODULE;
