@@ -1,0 +1,14 @@
+
+
+CREATE COMPUTE MODULE practice3_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE person REFERENCE TO InputRoot.XMLNSC.person;
+		--SET Environment.Variable = ASBITSTREAM(person);
+		--SET OutputRoot.BLOB.BLOB = ASBITSTREAM(person);
+		SET Environment.Variable= CAST(ASBITSTREAM(person)as CHARACTER ENCODING InputRoot.Properties.Encoding);
+		
+		RETURN TRUE;
+	END;
+END MODULE;
