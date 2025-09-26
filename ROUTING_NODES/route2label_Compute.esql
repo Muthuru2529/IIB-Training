@@ -1,0 +1,11 @@
+
+
+CREATE COMPUTE MODULE route2label_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'First';
+		RETURN TRUE;
+	END;
+
+
+END MODULE;

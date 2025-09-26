@@ -1,0 +1,19 @@
+
+
+CREATE FILTER MODULE filter_node_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE var INTEGER CAST(Root.XMLNSC.num1 AS INTEGER CCSID Root.Properties.CodedCharSetId);
+		
+		IF var = 20 then 
+			RETURN True;
+		ELSEIF var > 20 then 
+			RETURN false;
+		else 
+			Return UnKnown;
+		end if;
+
+
+	END;
+
+END MODULE;
