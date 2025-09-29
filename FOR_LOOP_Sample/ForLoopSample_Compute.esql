@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE ForLoopSample_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		DECLARE i INTEGER 1;
+ 
+        -- Iterate over each <details> element under <customer>
+        FOR InRef AS InputRoot.XMLNSC.customer.details[] DO
+            SET OutputRoot.JSON.Data.customer.details[i].id   = InRef.id;
+            SET OutputRoot.JSON.Data.customer.details[i].name = InRef.name;
+            SET OutputRoot.JSON.Data.customer.details[i].dept = InRef.dept;
+            SET OutputRoot.JSON.Data.customer.details[i].age  = InRef.age;
+            SET i = i + 1;
+        END FOR;
+	END;
+END MODULE;
