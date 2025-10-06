@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "person": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "dept": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "age", "dept", "company"]
+    }
+  },
+  "required": ["person"]
+}

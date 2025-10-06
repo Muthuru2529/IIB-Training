@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "note": {
+      "type": "object",
+      "properties": {
+        "to": { "type": "string" },
+        "from": { "type": "string" },
+        "heading": { "type": "string" },
+        "body": { "type": "string" }
+      },
+      "required": ["to", "from", "heading", "body"]
+    }
+  },
+  "required": ["note"]
+}
