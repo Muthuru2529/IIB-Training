@@ -1,0 +1,48 @@
+
+
+CREATE COMPUTE MODULE OVERLAY_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	    --CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 0;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.XMLNSC.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	--DECLARE test CHARACTER 'venkatesh';
+	 --DECLARE firstname character 'venkatesh muthuru';
+	 --DECLARE lastname CHARACTER 'muthuru';
+	 
+	-- DECLARE X integer;
+	 --SET OutputRoot.JSON.Data.value = SUBSTRING(firstname after '@'); 
+	--SET OutputRoot.JSON.Data.value = REPLACE(firstname, ' ', '_'); 
+--	
+--	 DECLARE employees INTEGER 80;
+--	 DECLARE companyStatus CHARACTER;
+--	 IF employees >= 100 THEN
+--	 set companyStatus = employees/2;
+--	 ELSE IF employees < 100  THEN
+--	 set companyStatus = employees+20; 	 	 
+--	 END IF; 
+--	 END IF;
+--	 SET OutputRoot.JSON.Data.company = companyStatus;
+	 	 	 	 
+SET OutputRoot.JSON.Data.Year = EXTRACT(YEAR FROM CURRENT_DATE);
+SET OutputRoot.JSON.Data.Month = EXTRACT(MONTH FROM CURRENT_DATE);
+SET OutputRoot.JSON.Data.Day = EXTRACT(DAY FROM CURRENT_DATE);
+SET OutputRoot.JSON.Data.Hour = EXTRACT(HOUR FROM CURRENT_TIME);
+
+	  
+	
+	END;
+END MODULE;
