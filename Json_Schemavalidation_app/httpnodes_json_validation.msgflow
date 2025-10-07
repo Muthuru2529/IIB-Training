@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="334,104" computeExpression="esql://routine/#httpnodes_json_validation_Compute.Main">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
-      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="107,104" URLSpecifier="/json_validation" messageDomainProperty="JSON" messageSetProperty="schemas/json_http.schema.json" validateMaster="contentAndValue">
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="107,104" URLSpecifier="/json_validation" messageDomainProperty="JSON" messageSetProperty="schemas/json_http.schema.json" validateTiming="complete" validateMaster="content">
         <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
       </nodes>
       <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="566,108">
