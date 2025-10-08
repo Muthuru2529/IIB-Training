@@ -1,0 +1,23 @@
+
+--DECLARE var EXTERNAL CHARACTER;
+
+CREATE COMPUTE MODULE odbc_db_example_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+----		set OutputRoot.XMLNSC.result.data[] =PASSTHRU('select * from DETAILS');
+--		DECLARE employe_company1 REFERENCE TO InputRoot.XMLNSC.employe_details;
+--		DECLARE employe_company CHARACTER CAST(employe_company1.employe_company as CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+----		DECLARE company1 CHARACTER 'TCS';
+----		DECLARE company2 CHARACTER 'EIDIKO';
+--		IF employe_company = 'TCS' THEN
+--			set OutputRoot.XMLNSC.result.data[] = PASSTHRU('select * from card');
+--		ELSEIF employe_company = 'EIDIKO' THEN
+			set OutputRoot.XMLNSC.result.data[] = PASSTHRU('select * from card');
+--		END IF;
+--		
+      -- set OutputRoot.XMLNSC.result.data[] = select * from Database.sarasu.system.card;
+		
+		RETURN TRUE;
+	END;
+END MODULE;
