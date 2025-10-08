@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="employe_id" type="xsd:string"/>
+  <xsd:element name="employe_name" type="xsd:string"/>
+  <xsd:element name="employe_domain" type="xsd:string"/>
+  <xsd:element name="employe_details">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="employe_name"/>
+        <xsd:element ref="employe_id"/>
+        <xsd:element ref="employe_domain"/>
+        <xsd:element ref="employe_company"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="employe_company" type="xsd:string"/>
+</xsd:schema>
