@@ -13,11 +13,21 @@ CREATE COMPUTE MODULE odbc_db_example_Compute
 --		IF employe_company = 'TCS' THEN
 --			set OutputRoot.XMLNSC.result.data[] = PASSTHRU('select * from card');
 --		ELSEIF employe_company = 'EIDIKO' THEN
-			set OutputRoot.XMLNSC.result.data[] = PASSTHRU('select * from card');
+			--set OutputRoot.XMLNSC.result.data[] = PASSTHRU('select * from card');
 --		END IF;
 --		
       -- set OutputRoot.XMLNSC.result.data[] = select * from Database.sarasu.system.card;
+       -- INSERT INTO  Database.sarasu.system.card(CARDNO,BALANCE,TYPE ) VALUES (9799,20000,'credit' );
+	 --DELETE FROM Database.sarasu.system.card AS CARDNO WHERE CARDNO = 9799;
+	
+		--UPDATE Database.card SET cardno=124,balance=1000 WHERE TYPE = 'credit';
+--		DECLARE cardNo,cardBalance CHARACTER
+--		DECLARE creditType CHARACTER;
+--		SET Environment.Var = PASSTHRU('UPDATE TDatabase.card SET cardno=,card.balance=1000 WHERE card.TYPE = 'credit'');
 		
+		UPDATE Database.card AS c
+		 SET balance = InputRoot.XMLNSC.card.balance
+ 		WHERE c.type = InputRoot.XMLNSC.card.type;
 		RETURN TRUE;
 	END;
 END MODULE;
