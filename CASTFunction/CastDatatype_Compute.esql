@@ -1,0 +1,34 @@
+
+
+CREATE COMPUTE MODULE CastDatatype_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		DECLARE mychar REFERENCE TO InputRoot.XMLNSC.employee;
+--			DECLARE myBlob BLOB;
+--	  		SET myBlob = CAST( mychar AS BLOB);
+--	  		SET OutputRoot.JSON.Data.person = CAST(myBlob AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+
+
+--     declare myblob REFERENCE TO InputRoot.BLOB.BLOB;
+--     SET OutputRoot.JSON.Data.person = CAST(myBlob AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId)
+
+		--CREATE LASTCHILD OF OutputRoot DOMAIN('XMLNSC') PARSE(InputRoot.BLOB.BLOB);
+		CREATE LASTCHILD OF OutputRoot DOMAIN('JSON') PARSE(InputRoot.XMLNSC.name);
+	END;
+END MODULE;
