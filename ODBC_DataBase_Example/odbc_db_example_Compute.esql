@@ -24,10 +24,11 @@ CREATE COMPUTE MODULE odbc_db_example_Compute
 --		DECLARE cardNo,cardBalance CHARACTER
 --		DECLARE creditType CHARACTER;
 --		SET Environment.Var = PASSTHRU('UPDATE TDatabase.card SET cardno=,card.balance=1000 WHERE card.TYPE = 'credit'');
+		PASSTHRU 'UPDATE EMP_DETAILS SET EMPLOYEE_NAME=? WHERE EMPLOYEE_ID=?' VALUES('RAMANUJ',1266);
 		
-		UPDATE Database.card AS c
-		 SET balance = InputRoot.XMLNSC.card.balance
- 		WHERE c.type = InputRoot.XMLNSC.card.type;
-		RETURN TRUE;
+--		UPDATE Database.card AS c
+--		 SET balance = InputRoot.XMLNSC.card.balance
+-- 		WHERE c.type = InputRoot.XMLNSC.card.type;
+	RETURN TRUE;
 	END;
 END MODULE;

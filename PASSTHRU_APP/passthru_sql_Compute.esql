@@ -23,6 +23,8 @@ CREATE COMPUTE MODULE passthru_sql_Compute
 --set OutputRoot.JSON.data.result[] = SELECT * FROM Database.DSN1.system.emp_details;
 --SET OutputRoot.JSON.Data.result[] = PASSTHRU(mytable);
   SET OutputRoot.JSON.Data.result[] = PASSTHRU('select * from emp_details');
+  
+  --THROW USER EXCEPTION;
 -- 'CREATE TABLE Customers (
 --  CustomerNumber INTEGER,
 --  FirstName      VARCHAR(256),

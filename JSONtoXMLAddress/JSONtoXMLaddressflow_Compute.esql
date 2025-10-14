@@ -1,0 +1,31 @@
+
+
+CREATE COMPUTE MODULE JSONtoXMLaddressflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+	CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.XMLNSC.name = InputRoot.JSON.Data.name;
+		--SET OutputRoot.XMLNSC.note.from = InputRoot.JSON.Data.note.from;
+		--SET OutputRoot.XMLNSC.note.heading = InputRoot.JSON.Data.note.heading;
+		--SET OutputRoot.XMLNSC.note.body = InputRoot.JSON.Data.note.body;
+--		DECLARE myChar REFERENCE To InputRoot.XMLNSC.name;
+--		DECLARE myBlob BLOB CAST(myChar AS BLOB CCSID InputRoot.Properties.CodedCharSetId);
+--		SET OutputRoot.JSON.Data.result = myBlob;
+	
+		END;
+END MODULE;

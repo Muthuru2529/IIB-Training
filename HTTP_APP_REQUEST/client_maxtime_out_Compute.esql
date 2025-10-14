@@ -21,9 +21,10 @@ CREATE COMPUTE MODULE client_maxtime_out_Compute
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
 --		SET OutputRoot.JSON.Data.employe = InputRoot.XMLNSC.customer;
 		SET OutputRoot = InputRoot;
-		DECLARE HTTPHeaderRef REFERENCE TO OutputRoot.HTTPResponseHeader;
-		DETACH HTTPHeaderRef;
-		ATTACH HTTPHeaderRef TO OutputRoot.MQMD AS NEXTSIBLING;
-		--THROW USER EXCEPTION;
+		
+--		DECLARE HTTPHeaderRef REFERENCE TO OutputRoot.HTTPResponseHeader;
+--		DETACH HTTPHeaderRef;
+--		ATTACH HTTPHeaderRef TO OutputRoot.MQMD AS NEXTSIBLING;
+		THROW USER EXCEPTION;
 	END;
 END MODULE;
