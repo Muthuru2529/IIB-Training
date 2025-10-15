@@ -1,0 +1,33 @@
+BROKER SCHEMA VALIDATION
+
+
+CREATE COMPUTE MODULE Validation_Subflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+	 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	DECLARE emp_Id REFERENCE TO InputRoot.XMLNSC.employee.employeeId;
+	
+	IF emp_Id = 1266  THEN
+		SET OutputRoot.JSON.Data.person.name = 'venkatesh';
+	ELSEIF emp_Id = 1284 THEN 
+		SET OutputRoot.JSON.Data.person.name = 'pavan';
+	
+	END IF;
+		
+	END;
+END MODULE;
