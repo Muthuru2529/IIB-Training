@@ -1,0 +1,33 @@
+CREATE COMPUTE MODULE XMLtoJSONMQMessageflow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+--		SET OutputRoot = InputRoot;
+		PASSTHRU 'UPDATE EMP_DETAILS SET EMPLOYEE_NAME = ? WHERE EMPLOYEE_ID =?' VALUES('sharuq',1266);
+		--DECLARE mychar REFERENCE TO InputRoot.XMLNSC.address;
+		--DECLARE myBlob BLOB CAST(mychar as BLOB CCSID InputRoot.Properties.CodedCharSetId);
+		--SET OutputRoot.JSON.Data.result = myBlob;
+		--DECLARE person REFERENCE TO InputRoot.XMLNSC.person;
+		--SET Environment.Variable= CAST(ASBITSTREAM(person)as CHARACTER ENCODING InputRoot.Properties.Encoding);
+--SET OutputRoot.JSON.Data.value = OVERLAY(mychar PLACING 'xyz' from 2);
+	--SET OutputRoot.JSON.Data.value = LENGTH(RIGHT(test1,5)); 
+	THROW USER EXCEPTION;
+	END;
+END MODULE;
