@@ -1,0 +1,38 @@
+
+
+CREATE COMPUTE MODULE Retrive_Message_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		--SET OutputRoot.JSON.Data.result = InputRoot.XMLNSC.name;
+		--SET OutputRoot.MQMD.ReplyToQ = 'out4';
+--		SET OutputLocalEnvironment.MQMD.MessageId = 'B419602';
+--	DECLARE msgId BLOB;
+--	SET msgId =InputRoot.MQMD.MsgId;
+--	SET OutputLocalEnvironment.MQMD.MsgId = msgId;
+--	SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'out4';
+--	SET OutputRoot.JSON.Data.person = InputRoot.XMLNSC.name;
+	
+--	   
+--	    SET OutputRoot.MQMD.MsgId = InputRoot.XMLNS;
+--		SET OutputLocalEnvironment.Destination.MQ.DestinationData[1].queueName = 'out3';
+		
+		set OutputRoot.JSON.Data.value = InputRoot.XMLNSC;
+		
+	END;
+END MODULE;
