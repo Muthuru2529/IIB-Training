@@ -1,6 +1,6 @@
 
 
-CREATE COMPUTE MODULE client_maxtime_out_Compute
+CREATE COMPUTE MODULE Http_Async_Req_Resp_Nodes_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		-- CALL CopyMessageHeaders();
@@ -19,12 +19,6 @@ CREATE COMPUTE MODULE client_maxtime_out_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
---		SET OutputRoot.JSON.Data.employe = InputRoot.XMLNSC.customer;
-		SET OutputRoot.JSON.Data.details = InputRoot.XMLNSC;
-		
---		DECLARE HTTPHeaderRef REFERENCE TO OutputRoot.HTTPResponseHeader;
---		DETACH HTTPHeaderRef;
---		ATTACH HTTPHeaderRef TO OutputRoot.MQMD AS NEXTSIBLING;
-		--THROW USER EXCEPTION;
+		SET OutputRoot = InputRoot;
 	END;
 END MODULE;
