@@ -19,7 +19,9 @@ CREATE COMPUTE MODULE MsgFlow_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.MQMD.ReplyToQ = 'out1';
+		--SET OutputRoot.MQMD.ReplyToQ = 'out1';
 		--SET OutputRoot.MQMD.ReplyToQMgr = 'QMANAGER1';
+		set OutputRoot = InputRoot;
+		THROW USER EXCEPTION;
 	END;
 END MODULE;

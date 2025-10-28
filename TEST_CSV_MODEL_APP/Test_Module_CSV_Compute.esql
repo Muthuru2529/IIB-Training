@@ -1,0 +1,52 @@
+
+
+CREATE COMPUTE MODULE Test_Module_CSV_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		--/*DFDL TO JSON*/--
+--		DECLARE i INTEGER 1;
+--		DECLARE emp REFERENCE TO InputRoot.DFDL.TEST_SCHEMA.record[1];
+--		WHILE LASTMOVE(emp) DO
+--		SET OutputRoot.JSON.Data.employee[i].name=emp.name;
+--		SET OutputRoot.JSON.Data.employee[i].age=emp.age;
+--		SET OutputRoot.JSON.Data.employee[i].dept=emp.dept;
+--		SET OutputRoot.JSON.Data.employee[i].salary=emp.salary;
+--		SET OutputRoot.JSON.Data.employee[i].address=emp.adress;
+--		MOVE emp NEXTSIBLING;
+--		SET i= i+1;
+--		END WHILE;
+     
+         
+        DECLARE i INTEGER 1;
+		DECLARE inRef REFERENCE TO InputRoot.JSON.Data.Employees.Employee.item[1];
+		WHILE LASTMOVE(inRef) DO
+			SET OutputRoot.DFDL.TEST_SCHEMA.record[i].name = inRef.name;
+			SET OutputRoot.DFDL.TEST_SCHEMA.record[i].age = inRef.age;
+			SET OutputRoot.DFDL.TEST_SCHEMA.record[i].dept = inRef.dept;
+			SET OutputRoot.DFDL.TEST_SCHEMA.record[i].salary = inRef.salary;
+			SET OutputRoot.DFDL.TEST_SCHEMA.record[i].address = inRef.address;
+			
+			MOVE inRef NEXTSIBLING;
+			SET i=i+1;
+		END WHILE;
+		
+		
+		
+	END;
+END MODULE;
