@@ -1,0 +1,67 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "RESTAPI_Swagg2_myfirst",
+    "version" : "1.0.0",
+    "description" : "RESTAPI_Swagg2_myfirst"
+  },
+  "paths" : {
+    "/get-data" : {
+      "get" : {
+        "operationId" : "get-Data",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful.",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "produces" : [ "application/json" ],
+        "description" : "Retrieve data"
+      }
+    },
+    "/insert-data/{eidiko}" : {
+      "post" : {
+        "operationId" : "postInsert-data",
+        "responses" : {
+          "200" : {
+            "description" : "The operation was successful."
+          }
+        },
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "description" : "Insert a insert-data",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "The request body for the operation",
+          "required" : true
+        }, {
+          "name" : "Id",
+          "in" : "query",
+          "type" : "integer",
+          "format" : "",
+          "description" : "employee Id",
+          "required" : true
+        }, {
+          "name" : "msgHead",
+          "in" : "header",
+          "type" : "string",
+          "format" : "",
+          "description" : "application",
+          "required" : true
+        }, {
+          "required" : true,
+          "name" : "eidiko",
+          "in" : "path",
+          "type" : "string"
+        } ]
+      }
+    }
+  },
+  "basePath" : "/restapi_swagg2_myfirst/v1"
+}

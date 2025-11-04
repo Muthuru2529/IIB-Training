@@ -25,14 +25,15 @@ CREATE COMPUTE MODULE passthru_sql_Compute
   SET OutputRoot.JSON.Data.result[] = PASSTHRU('select * from emp_details');
   
   --THROW USER EXCEPTION;
--- 'CREATE TABLE Customers (
---  CustomerNumber INTEGER,
---  FirstName      VARCHAR(256),
---  LastName       VARCHAR(256),
---  Street         VARCHAR(256),
---  City           VARCHAR(256), 
---  Country        VARCHAR(256)
---   )' TO Database.DSN1;
---	PASSTHRU 'DROP TABLE Customers' TO Database.DSN1; 
+ PASSTHRU'CREATE TABLE Customers (
+  CustomerNumber INTEGER,
+  FirstName      VARCHAR(256),
+  LastName       VARCHAR(256),
+  Street         VARCHAR(256),
+  City           VARCHAR(256), 
+  Country        VARCHAR(256)
+   )' TO Database.DSN1;
+	--PASSTHRU 'DROP TABLE Customers' TO Database.DSN1; 
+	
 	END;
 END MODULE;
