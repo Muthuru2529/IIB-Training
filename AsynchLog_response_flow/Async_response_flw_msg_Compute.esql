@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE Async_response_flw_msg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE inRef REFERENCE TO InputRoot.JSON.Data.student;
+		DECLARE msgtype REFERENCE TO InputRoot.JSON.Data.student.log_type;
+		DECLARE mychar, mychar1 CHARACTER;
+		SET mychar = CAST(ASBITSTREAM(inRef) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CALL procedure1 (ApplicationLabel,MessageFlowLabel,CURRENT_TIMESTAMP,mychar,msgtype);
+		
+		SET OutputRoot.JSON.Data.Response = inRef;
+		DECLARE outRef REFERENCE TO OutputRoot.JSON.Data.Response;
+		SET mychar1 = CAST(ASBITSTREAM(outRef) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CALL procedure1 (ApplicationLabel,MessageFlowLabel,CURRENT_TIMESTAMP,mychar1,'channel-response');
+	END;
+END MODULE;
+
+CREATE PROCEDURE procedure1 (IN app_name CHARACTER, IN msgflw_name CHARACTER, IN log_time TIMESTAMP, IN message CHARACTER, IN log_type CHARACTER)
+LANGUAGE DATABASE
+EXTERNAL NAME "DB_STORED_PROCEDURE";
