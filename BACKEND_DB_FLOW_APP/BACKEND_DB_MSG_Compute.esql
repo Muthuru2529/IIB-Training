@@ -1,0 +1,36 @@
+
+DECLARE ns NAMESPACE 'http://www.example.org/BACKEND_DB_WSDLFile/';
+
+
+CREATE COMPUTE MODULE BACKEND_DB_MSG_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+	DECLARE inRef1 REFERENCE TO InputRoot.SOAP.Body.ns:NewOperation.details;
+		DECLARE myBlob2, myBlob3 BLOB;
+		DECLARE mychar2, mychar3 CHARACTER;
+		SET myBlob2 = ASBITSTREAM(inRef1);
+		SET mychar2 = CAST(myBlob2 AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		DECLARE app_name CHARACTER ApplicationLabel;
+		
+		CALL DBPrc(ApplicationLabel, MessageFlowLabel, CURRENT_TIMESTAMP,'Host-Response',mychar2);
+		
+		SET OutputRoot.SOAP.Body.ns:NewOperationResponse.out= InputRoot.SOAP.Body.ns:NewOperation.details;
+		
+		DECLARE outRef1 REFERENCE TO OutputRoot.SOAP.Body.ns:NewOperationResponse.out;
+		
+		SET myBlob3 = ASBITSTREAM(outRef1 );
+		SET mychar3 = CAST(myBlob3 AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId );
+		
+		CALL DBPrc(ApplicationLabel, MessageFlowLabel, CURRENT_TIMESTAMP, 'Channel-Response',  mychar3);
+	END;
+END MODULE;
+
+CREATE PROCEDURE DBPrc(IN app_name CHARACTER, IN msgflw_name CHARACTER, IN LOG_time TIMESTAMP, IN log_type CHARACTER, IN msg CHARACTER)
+LANGUAGE DATABASE
+EXTERNAL NAME "DB_STOREDPROCEDURE";
