@@ -1,0 +1,21 @@
+
+
+CREATE COMPUTE MODULE AsynchLog_gateway_msg_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data.student.message= InputRoot.XMLNSC.student;
+		SET OutputRoot.JSON.Data.student.app = ApplicationLabel;
+		SET OutputRoot.JSON.Data.student.msgflw = MessageFlowLabel;
+		SET OutputRoot.JSON.Data.student.log_time = CURRENT_TIMESTAMP;
+		SET OutputRoot.JSON.Data.student.log_type = 'gateway-request';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'Q4';
+		PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+		
+	END;
+END MODULE;
