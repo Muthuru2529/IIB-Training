@@ -1,0 +1,29 @@
+DECLARE url2 EXTERNAL CHARACTER 'http://localhost:7800/response';
+
+CREATE COMPUTE MODULE DBLOG_Asynch_Business_msgflw_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL Log_BusinessflwMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE Log_BusinessflwMessage() BEGIN
+		DECLARE inref REFERENCE TO InputRoot.JSON.Data;
+		DECLARE mychar CHARACTER CAST(ASBITSTREAM(inref) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		call procedure1(ApplicationLabel,MessageFlowLabel,CURRENT_TIMESTAMP,mychar,'Gateway-response');
+		
+	    
+		SET OutputRoot.XMLNSC.student = inref;
+		DECLARE outref REFERENCE TO OutputRoot.XMLNSC.student;	
+		DECLARE mychar1 CHARACTER CAST(ASBITSTREAM(outref) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CALL procedure1(ApplicationLabel,MessageFlowLabel,CURRENT_TIMESTAMP,mychar1,'business-request');
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = url2;
+	
+	END;
+END MODULE;
+
+CREATE PROCEDURE procedure1 (IN app_name CHARACTER, IN msgflw_name CHARACTER, IN log_time TIMESTAMP, IN message CHARACTER, IN log_type CHARACTER)
+LANGUAGE DATABASE
+EXTERNAL NAME "DB_STORED_PROCEDURE";
