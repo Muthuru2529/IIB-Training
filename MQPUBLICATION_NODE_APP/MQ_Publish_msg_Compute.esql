@@ -19,12 +19,15 @@ CREATE COMPUTE MODULE MQ_Publish_msg_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
 		SET OutputRoot.MQMD.Format = MQFMT_RF_HEADER_2;
 		SET OutputRoot.MQRFH2.(MQRFH2.Field)Version = MQRFH_VERSION_2;
 		SET OutputRoot.MQRFH2.(MQRFH2.Field)NameValueCCSID = 1208;
 		set OutputRoot.MQRFH2.psc.Command = 'Publish';
 		SET OutputRoot.MQRFH2.psc.Topic = 'ACE12';
-		SET OutputRoot.MQRFH2.psc.Pubopt = 'Local';		
-		SET OutputRoot.JSON.Data.name = InputRoot.XMLNSC.name;
+		SET OutputRoot.MQRFH2.psc.Pubopt = 'Local';	
+		SET Environment.var[] = SELECT transactions.status FROM Database.transactions WHERE transactions.txn_id = 'T1001';
+		SET OutputRoot.JSON.Data.transaction.details = Environment.var.status;
+		
 	END;
 END MODULE;

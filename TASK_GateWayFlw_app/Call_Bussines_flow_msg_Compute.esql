@@ -29,8 +29,7 @@ CREATE COMPUTE MODULE Call_Bussines_flow_msg_Compute
         --SET OutputLocalEnvironment.Destination.HTTP.RequestURL = Environment.variable.service.service_url;
         SET OutputLocalEnvironment.Destination.HTTP.RequestURL =  Environment.var.service_url;
         SET OutputRoot.JSON.Data.service.url =Environment.var.service_url; 
-		
-		
-		
+	
+				
 	END;
 END MODULE;

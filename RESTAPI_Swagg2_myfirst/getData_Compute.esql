@@ -19,6 +19,6 @@ CREATE COMPUTE MODULE getData_Compute
 	END;
 
 	CREATE PROCEDURE CopyEntireMessage() BEGIN
-		SET OutputRoot.JSON.Data.person = InputRoot.JSON.data.details;
+		SET OutputRoot.JSON.Data.person = InputRoot.XMLNSC.transaction;
 	END;
 END MODULE;
