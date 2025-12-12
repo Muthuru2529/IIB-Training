@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/DBLOG_WSDLFile/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/DBLOG_WSDLFile/">
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="NewOperation">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                  	
+        <xsd:element name="name" type="xsd:string"/>
+                  	
+        <xsd:element name="dept" type="xsd:string"/>
+                  	
+        <xsd:element name="salray" type="xsd:string"/>
+                  	
+        <xsd:element name="company" type="xsd:string"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+        
+  <xsd:element ibmSchExtn:docRoot="true" name="NewOperationResponse">
+            
+    <xsd:complexType>
+                
+      <xsd:sequence>
+                    
+        <xsd:element name="details" type="xsd:string"/>
+                  
+      </xsd:sequence>
+              
+    </xsd:complexType>
+          
+  </xsd:element>
+      
+</xsd:schema>

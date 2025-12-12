@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\IBM\ACET12\workspace\BACKEND_DB_FLOW_APP\BACKEND_DB_WSDLFile.wsdl
+
+The WSDL import will proceed with bindings BACKEND_DB_WSDLFileSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/IBM/ACET12/workspace/BACKEND_DB_FLOW_APP/BACKEND_DB_WSDLFile.wsdl.
+Parsing wsdl binding {http://www.example.org/BACKEND_DB_WSDLFile/}BACKEND_DB_WSDLFileSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema BACKEND_DB_WSDLFile.xsd.
+Creating file BACKEND_DB_WSDLFile.xsd in the workspace.
+Creating file /DBLOG_APP/BACKEND_DB_WSDLFile_InlineSchema1.xsd in the workspace.
+Copying source WSDL BACKEND_DB_WSDLFile.wsdl to BACKEND_DB_WSDLFile.wsdl.
+
+Elapsed time processing this message definition file: 0.076 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
