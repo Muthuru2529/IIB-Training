@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE DBLOG_Asynch_Response_msgflw_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL Log_ResponseMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE Log_ResponseMessage() BEGIN
+		DECLARE inref REFERENCE TO InputRoot.XMLNSC.student;
+		DECLARE mychar CHARACTER CAST(ASBITSTREAM(inref) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CALL procedure1(ApplicationLabel,MessageFlowLabel,CURRENT_TIMESTAMP,mychar,'business-response');
+		
+		SET OutputRoot.JSON.Data.student = inref;
+		DECLARE outref REFERENCE TO OutputRoot.JSON.Data.student;
+		DECLARE mychar1 CHARACTER CAST(ASBITSTREAM(outref) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CALL procedure1(ApplicationLabel,MessageFlowLabel, CURRENT_TIMESTAMP, mychar1, 'channel-response');
+		
+
+	END;
+END MODULE;
+
+CREATE PROCEDURE procedure1 (IN app_name CHARACTER, IN msgflw_name CHARACTER, IN log_time TIMESTAMP, IN message CHARACTER, IN log_type CHARACTER)
+LANGUAGE DATABASE
+EXTERNAL NAME "DB_STORED_PROCEDURE";
